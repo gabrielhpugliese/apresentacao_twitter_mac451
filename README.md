@@ -1,4 +1,4 @@
-python_flask_heroku
+Apresentação Twitter
 ===================
 
-Apresentação do TDC 2012: Iniciando uma aplicação web no Heroku com Python+Flask
+Apresentação de MAC0451/2012 

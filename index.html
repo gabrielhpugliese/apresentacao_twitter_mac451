@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+-->
+
+<html>
+  <head>
+    <title>Iniciando uma aplicação web no Heroku com Python+Flask</title>
+
+    <meta charset='utf-8'>
+    <script src='slides.js'> </script>
+  </head>
+  
+  <style>
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url('1.woff') format('woff');
+}
+  </style>
+
+  <body style='display: none'>
+
+    <section class='slides layout-regular template-default'>
+      <article>
+        <h1>
+          Obtenção de dados do Twitter
+          <br>
+        </h1>
+        <p>
+          Gabriel Pugliese
+          <br>
+          @gabrielsapo
+          <br>
+          Paulo Cheadi Haddad Filho
+          <br>
+          @paulochf
+        </p>
+      </article>
+      <article>
+        <h3>
+          Python
+        </h3>
+        <pre>
+def hello_tdc():
+    print 'Hello TDC!'
+        </pre>
+        <ul>
+          <li>
+            Linguagem de aprendizagem inicial rápida
+          </li>
+          <li>
+            Uma das linguagens oficiais do Google e Yahoo
+          </li>
+          <li>
+            Dropbox, Instagram, Washington Post etc.
+          </li>
+          <li>
+          	Já está sendo muito utilizado nas universidades brasileiras!
+          </li>
+        </ul>
+      </article>
+      
+      <article>
+        <h3>
+          Flask
+        </h3>
+        <pre>
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def hello_tdc():
+    return "Hello TDC!"
+
+if __name__ == "__main__":
+    app.run()
+		</pre>
+        <ul>
+          <li>
+            <i>"A modern, lightweight, well-documented microframework based on Werkzeug and Jinja 2"</i>
+          </li>
+          <li>
+            Excelente para fazer serviços web
+          </li>
+          <li>
+            Possui várias extensões (flask-admin, flask-celery etc.)
+          </li>
+        </ul>
+      </article>
+      <article>
+        <h3>
+          Heroku
+        </h3>
+        <ul>
+          <li>
+            Plataforma de computação em nuvem desde 2007
+          </li>
+          <li>
+          	Virou parceiro do Facebook em 2011
+          </li>
+          <li>
+            Suporta Python, Node.js, Ruby, Java, PHP, Scala e Clojure
+          </li>
+          <li>
+            Vários tipos de banco de dados (PostgreSQL grátis, MongoDB etc.)
+          </li>
+          <li>
+          	Vários tipos de add-ons (Memcaches, SMS Gateway, Video Encoding etc.)
+          </li>
+          <li>
+          	Certificado SSL grátis! (Ótimo para apps em canvas do Facebook)
+          </li>
+          <li>
+          	Crie sua conta agora: <a href='http://www.heroku.com/'>http://www.heroku.com/</a>
+          </li>
+        </ul>
+      </article>
+    
+      
+      <article>
+      	<h1>Mão na massa!</h1>
+      	<p>16 comandos no shell</p>
+      </article>
+
+	  <article>
+        <h3>
+          Instalando o Heroku Toolbelt
+        </h3>
+        Linux:
+        <pre>
+bash> wget -qO- https://toolbelt.heroku.com/install.sh | sh
+bash> heroku login
+        </pre>
+        <img class='centered' src='images/heroku_login.png'>
+      </article>
+      
+      <article>
+        <h3>
+        	Configurando o ambiente virtual local
+        </h3>
+        Pra quem não usa virtualenv ainda:
+        <pre>
+bash> sudo apt-get install python-pip # Ubuntu/Debian
+bash> sudo pip install virtualenv
+        </pre>
+        Criando virtualenv e instalando o Flask:
+        <pre>
+bash> virtualenv venv --distribute # Cria o ambiente virtual
+bash> source venv/bin/activate # Ativa o ambiente virtual
+bash> pip install flask # Instala o Flask
+        </pre>
+      </article>
+      
+      <article>
+      	<img class='centered' src='images/virtualenv.png' />
+      </article>
+      
+      <article>
+      	<h3>
+      		Criando a aplicação
+      	</h3>
+      	app.py:
+        <pre>
+import os
+
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def hello_tdc():
+    return 'Hello TDC!'
+
+if __name__ == '__main__':
+    # Bind to PORT if defined, otherwise default to 5000.
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
+        </pre>
+      </article>
+      
+      <article>
+        <h3>
+        	Configurações do Heroku
+        </h3>
+      	<pre>
+# Arquivo de pacotes que a aplicação depende
+bash> pip freeze > requirements.txt 
+# Comando que o server do Heroku executa
+bash> echo "web: python app.py" > Procfile 
+      	</pre>
+      	Antes de colocar no Heroku, faça um teste local:
+      	<pre>
+bash> foreman start # Emula o ambiente do Heroku
+      	</pre>
+      </article>
+      
+      <article>
+      	<img class='centered' src='images/local_test.png' />
+      </article>
+      
+      <article>
+      	<h3>
+      		Fazendo upload para o Heroku
+      	</h3>
+      	Inicializando repositório git:
+      	<pre>
+bash> git init
+bash> git add .
+bash> git commit -am "First commit."
+      	</pre>
+      	Criando app no Heroku e subindo os arquivos:
+      	<pre>
+bash> heroku keys:add # Cria e envia sua chave ssh para o Heroku
+bash> heroku apps:create # Cria uma aplicação no Heroku
+bash> git push heroku master # Sincroniza com o git do Heroku
+      	</pre>
+      	
+      </article>
+      
+      <article>
+      	<img class='centered' src='images/heroku_launch.png' />
+      </article>
+      
+      <article>
+      	<h3>
+      		Comandos úteis:
+      	</h3>
+      	<pre>
+bash> heroku ps # Mostra serviços rodando
+bash> heroku run python # Shell interativo Python remoto 
+bash> heroku run bash # Bash remoto
+bash> heroku releases # Mostra versões de deploy já feitas
+bash> heroku rollback v45 # Faz rollback para a versão 45
+      	</pre>
+      	<img class='centered' src='images/rollback.png' />
+      </article>
+      
+      <article>
+      	<h3>Quando escolher o Heroku?</h3>
+      	<ul>
+      		<li>
+      			Facilidade de deploy, versionamento e rollback através do git
+      		</li>
+      		<li>
+      			Não quer se preocupar com administração de servidores e escalabilidade
+      		</li>
+      		<li>
+      			Não quer se preocupar em comprar e assinar um certificado SSL
+      		</li>
+      		<li>
+      			Não quer se preocupar com segurança de servidores
+      		</li>
+      		<li>
+      			Precisa de vários add-ons e não quer se preocupar como implementá-los nos servidores
+      		</li>
+      	</ul>
+      </article>
+      
+      <article>
+      	<h2>Obrigado</h2>
+      	<ul>
+      		<li>
+      			Esta apresentação se encontra na nossa fan page:<br />
+      			<a href='https://www.facebook.com/digitalcube.com.br'>facebook.com/digitalcube.com.br</a>
+      		</li>
+      		<li>
+      			Tutorial de Python 100% em português:<br />
+      			<a href='http://turing.com.br/pydoc/2.7/tutorial/index.html'>turing.com.br/pydoc/2.7/tutorial/index.html</a>
+      		</li>
+      		<li>
+      			Documentação do Flask:<br />
+      			<a href='http://flask.pocoo.org/docs/'>flask.pocoo.org/docs/</a>
+      		</li>
+      		<li>
+      			Tutorial do Heroku:<br />
+      			<a href='https://devcenter.heroku.com/articles/python'>devcenter.heroku.com/articles/python</a>
+      		</li>
+      		<li>
+      			Nossa página no +Google:
+      			<a href='http://gplus.to/digitalcube'>gplus.to/digitalcube</a>
+      		</li>
+      	</ul>
+      </article>
+  </section>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-33222625-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </body>
+</html>
