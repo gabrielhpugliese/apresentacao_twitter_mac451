@@ -58,6 +58,20 @@ URL: http://code.google.com/p/html5slides/
 				    });
 				});
 			}
+			function print() {
+			    jQuery("body").css("background", "none");
+			    jQuery("article").removeClass("far-past");
+			    jQuery("article").removeClass("past");
+			    jQuery("article").removeClass("current");
+			    jQuery("article").removeClass("next");
+			    jQuery("article").removeClass("far-next");
+			    jQuery("*.to-build").removeClass("to-build");
+			    jQuery("article").css("display", "block");
+			    jQuery("article").css("top", "0");
+			    jQuery("article").css("left", "0");
+			    jQuery("article").css("margin", "0 0 9em 0");
+			    jQuery("article").css("position", "relative");
+			}
 		</script>
 	</head>
 
