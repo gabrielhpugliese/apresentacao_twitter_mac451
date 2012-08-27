@@ -14,20 +14,20 @@
 
 <html>
   <head>
-    <title>Iniciando uma aplicação web no Heroku com Python+Flask</title>
+    <title>Obtenção de dados do Twitter</title>
 
     <meta charset='utf-8'>
     <script src='slides.js'> </script>
+  <style>
+    @font-face {
+      font-family: 'Open Sans';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Open Sans'), local('OpenSans'), url('1.woff') format('woff');
+    }
+  </style>
   </head>
   
-  <style>
-@font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Open Sans'), local('OpenSans'), url('1.woff') format('woff');
-}
-  </style>
 
   <body style='display: none'>
 
@@ -38,272 +38,187 @@
           <br>
         </h1>
         <p>
-          Gabriel Pugliese
+          Gabriel Pugliese - @gabrielsapo
           <br>
-          @gabrielsapo
+          nUSP: 5639061
           <br>
-          Paulo Cheadi Haddad Filho
+          Paulo Cheadi Haddad Filho - @paulochf
           <br>
-          @paulochf
+          nUSP: 5210744
         </p>
       </article>
+
       <article>
         <h3>
-          Python
+          Twitter
         </h3>
-        <pre>
-def hello_tdc():
-    print 'Hello TDC!'
-        </pre>
-        <ul>
-          <li>
-            Linguagem de aprendizagem inicial rápida
-          </li>
-          <li>
-            Uma das linguagens oficiais do Google e Yahoo
-          </li>
-          <li>
-            Dropbox, Instagram, Washington Post etc.
-          </li>
-          <li>
-          	Já está sendo muito utilizado nas universidades brasileiras!
-          </li>
-        </ul>
+	<img style="float: right; height: 30%; width: 30%;"  src="images/bird.svg" />
+	<ul >
+	  <li>
+	  Serviço de microblog e rede social.
+	  </li>
+	  <li>
+	  Principal produto é o "Tweet": texto de até 140 caracteres.
+	  </li>
+	  <li>
+	  400 milhões de tweets por dia (a maioria <i>mobile</i>).
+	  </li>
+	  <li>
+	  100 milhões de usuários ativos (utilizaram 1 vez pelo menos em 3 meses).
+	  </li>
+	  <li>
+	  1 milhão de contas são criadas no Twitter todos os dias.
+	  </li>
+	  <li>
+	  Holanda, Brasil e Japão, nesta ordem, são os 3 maiores mercados ativos da plataforma.
+	  </li>
+	</ul>
+      </article>
+
+      <article>
+	<h1>Twitter REST API (v1.1)</h1>
+	<p><a href="https://dev.twitter.com/">dev.twitter.com</a></p>
       </article>
       
       <article>
         <h3>
-          Flask
+	  Anatomia de uma requisição HTTP para a API
         </h3>
+	<p>Como tweetar "Hello World!" com OAuth1.0a</p>
         <pre>
-from flask import Flask
-app = Flask(__name__)
+POST /1/statuses/update.json?include_entities=true HTTP/1.1
+Accept: *
+Connection: close
+User-Agent: OAuth gem v0.4.4
+Content-Type: application/x-www-form-urlencoded
+Authorization: 
+        OAuth oauth_consumer_key="xvz1evFS4wEEPTGEFPHBog", 
+              oauth_nonce="kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg", 
+              oauth_signature="tnnArxj06cWHq44gCs1OSKk%2FjLY%3D", 
+              oauth_signature_method="HMAC-SHA1", 
+              oauth_timestamp="1318622958", 
+              oauth_token="370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb", 
+              oauth_version="1.0"
+Content-Length: 76
+Host: api.twitter.com
 
-@app.route("/")
-def hello_tdc():
-    return "Hello TDC!"
-
-if __name__ == "__main__":
-    app.run()
-		</pre>
-        <ul>
-          <li>
-            <i>"A modern, lightweight, well-documented microframework based on Werkzeug and Jinja 2"</i>
-          </li>
-          <li>
-            Excelente para fazer serviços web
-          </li>
-          <li>
-            Possui várias extensões (flask-admin, flask-celery etc.)
-          </li>
-        </ul>
+status=Hello%20World%21
+	</pre>
       </article>
+
       <article>
         <h3>
-          Heroku
+          O que é e como funciona o OAuth
         </h3>
-        <ul>
-          <li>
-            Plataforma de computação em nuvem desde 2007
-          </li>
-          <li>
-          	Virou parceiro do Facebook em 2011
-          </li>
-          <li>
-            Suporta Python, Node.js, Ruby, Java, PHP, Scala e Clojure
-          </li>
-          <li>
-            Vários tipos de banco de dados (PostgreSQL grátis, MongoDB etc.)
-          </li>
-          <li>
-          	Vários tipos de add-ons (Memcaches, SMS Gateway, Video Encoding etc.)
-          </li>
-          <li>
-          	Certificado SSL grátis! (Ótimo para apps em canvas do Facebook)
-          </li>
-          <li>
-          	Crie sua conta agora: <a href='http://www.heroku.com/'>http://www.heroku.com/</a>
-          </li>
-        </ul>
+	<p><i>"An open protocol to allow secure authorization in a simple and standard method from web, mobile and desktop applications."</i></p>
+	<img style="margin-left: 15%; border: 1px solid;" src="images/chart.png" />
       </article>
     
-      
       <article>
-      	<h1>Mão na massa!</h1>
-      	<p>16 comandos no shell</p>
+	<h3>
+	  Obtendo as tokens
+	</h3>
+	<p>Após criar uma aplicação em <a href="https://dev.twitter.com/apps/">dev.twitter.com/apps/</a>:</p>
+	<img class="centered" src="images/token.png" style="height: 88%;"/>
+	
       </article>
 
-	  <article>
-        <h3>
-          Instalando o Heroku Toolbelt
-        </h3>
-        Linux:
-        <pre>
-bash> wget -qO- https://toolbelt.heroku.com/install.sh | sh
-bash> heroku login
-        </pre>
-        <img class='centered' src='images/heroku_login.png'>
-      </article>
-      
       <article>
         <h3>
-        	Configurando o ambiente virtual local
+          Botão de autorização do usuário
         </h3>
-        Pra quem não usa virtualenv ainda:
-        <pre>
-bash> sudo apt-get install python-pip # Ubuntu/Debian
-bash> sudo pip install virtualenv
-        </pre>
-        Criando virtualenv e instalando o Flask:
-        <pre>
-bash> virtualenv venv --distribute # Cria o ambiente virtual
-bash> source venv/bin/activate # Ativa o ambiente virtual
-bash> pip install flask # Instala o Flask
-        </pre>
-      </article>
-      
-      <article>
-      	<img class='centered' src='images/virtualenv.png' />
-      </article>
-      
-      <article>
-      	<h3>
-      		Criando a aplicação
-      	</h3>
-      	app.py:
-        <pre>
-import os
-
-from flask import Flask
-app = Flask(__name__)
-
-@app.route('/')
-def hello_tdc():
-    return 'Hello TDC!'
-
-if __name__ == '__main__':
-    # Bind to PORT if defined, otherwise default to 5000.
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
-        </pre>
+        <br><img class='centered' src="images/authapp.jpg" />
+	<p>Na maioria das vezes, quanto mais autorizações requeridas de um usuário, maior a probabilidade de rejeição do aplicativo pelo usuário.</p>
       </article>
       
       <article>
         <h3>
-        	Configurações do Heroku
+	  Onde mudar as permissões
         </h3>
-      	<pre>
-# Arquivo de pacotes que a aplicação depende
-bash> pip freeze > requirements.txt 
-# Comando que o server do Heroku executa
-bash> echo "web: python app.py" > Procfile 
-      	</pre>
-      	Antes de colocar no Heroku, faça um teste local:
-      	<pre>
-bash> foreman start # Emula o ambiente do Heroku
-      	</pre>
+        <p>Na aba <i>settings</i> da sua aplicação:</p><br>
+	<img class="centered" src="images/type.png" />
       </article>
       
       <article>
-      	<img class='centered' src='images/local_test.png' />
-      </article>
-      
-      <article>
-      	<h3>
-      		Fazendo upload para o Heroku
-      	</h3>
-      	Inicializando repositório git:
-      	<pre>
-bash> git init
-bash> git add .
-bash> git commit -am "First commit."
-      	</pre>
-      	Criando app no Heroku e subindo os arquivos:
-      	<pre>
-bash> heroku keys:add # Cria e envia sua chave ssh para o Heroku
-bash> heroku apps:create # Cria uma aplicação no Heroku
-bash> git push heroku master # Sincroniza com o git do Heroku
-      	</pre>
-      	
-      </article>
-      
-      <article>
-      	<img class='centered' src='images/heroku_launch.png' />
+	<h3>
+	  A partir de março de 2013
+	</h3>
+	<ul>
+	  <li>
+	    Toda a requisição deverá ser autenticada. 
+	  </li>
+	  <li>
+	    Limitação de 60 requisições por hora por instância (antigamente 350req/hora). 
+	  </li>
+	  <li>
+	    Padrões visuais e léxicos obrigatórios aos desenvolvedores.
+	  </li>
+	  <li>
+	    Aplicativos em plataformas móveis precisarão ser autorizados.
+	  </li>
+	  <li>
+	   Se desenvolvedores precisarem de uma grande escala de <i>tokens</i> individuais, precisará entrar em contato.
+	  </li>
+	</ul>
       </article>
       
       <article>
       	<h3>
-      		Comandos úteis:
+	  Quadrantes dos desenvolvedores do Twitter
       	</h3>
-      	<pre>
-bash> heroku ps # Mostra serviços rodando
-bash> heroku run python # Shell interativo Python remoto 
-bash> heroku run bash # Bash remoto
-bash> heroku releases # Mostra versões de deploy já feitas
-bash> heroku rollback v45 # Faz rollback para a versão 45
-      	</pre>
-      	<img class='centered' src='images/rollback.png' />
+	<img class="centered" src="images/dev_chart.png" />
       </article>
       
       <article>
-      	<h3>Quando escolher o Heroku?</h3>
-      	<ul>
-      		<li>
-      			Facilidade de deploy, versionamento e rollback através do git
-      		</li>
-      		<li>
-      			Não quer se preocupar com administração de servidores e escalabilidade
-      		</li>
-      		<li>
-      			Não quer se preocupar em comprar e assinar um certificado SSL
-      		</li>
-      		<li>
-      			Não quer se preocupar com segurança de servidores
-      		</li>
-      		<li>
-      			Precisa de vários add-ons e não quer se preocupar como implementá-los nos servidores
-      		</li>
-      	</ul>
+        <h3>
+	  Planos futuros para desenvolvedores
+        </h3>
+	<ul>
+	  <li>
+	    Tweets em tempo real nas páginas web.
+	  </li>
+	  <li>
+	    Maior integração com o Twitter Cards:
+	  </li>
+	  <img class="centered" src="images/cards.png" />
+	</ul>
+      </article>
+      
+      <article>
+	<h1>
+	  Explorando a API pelo dev console
+	</h1>
+	<p><a href="https://dev.twitter.com/console">dev.twitter.com/console</a></p>
+      </article>
+
+      <article>
+	<h1>
+	  Trabalhando com Twitter4j
+	</h1>
+	<p><a href="http://twitter4j.org">twitter4j.org</a></p>
       </article>
       
       <article>
       	<h2>Obrigado</h2>
       	<ul>
-      		<li>
-      			Esta apresentação se encontra na nossa fan page:<br />
-      			<a href='https://www.facebook.com/digitalcube.com.br'>facebook.com/digitalcube.com.br</a>
-      		</li>
-      		<li>
-      			Tutorial de Python 100% em português:<br />
-      			<a href='http://turing.com.br/pydoc/2.7/tutorial/index.html'>turing.com.br/pydoc/2.7/tutorial/index.html</a>
-      		</li>
-      		<li>
-      			Documentação do Flask:<br />
-      			<a href='http://flask.pocoo.org/docs/'>flask.pocoo.org/docs/</a>
-      		</li>
-      		<li>
-      			Tutorial do Heroku:<br />
-      			<a href='https://devcenter.heroku.com/articles/python'>devcenter.heroku.com/articles/python</a>
-      		</li>
-      		<li>
-      			Nossa página no +Google:
-      			<a href='http://gplus.to/digitalcube'>gplus.to/digitalcube</a>
-      		</li>
+	  <li>
+	    <a href="http://www.snipe.net/2009/07/writing-your-first-twitter-application-with-oauth/">Snipe.net</a>
+	  </li>
+	  <li>
+	    <a href="https://dev.twitter.com/docs">Documentação do Twitter</a>
+	  </li>
+	  <li>
+	    <a href="http://oauth.net/">OAuth</a>
+	  </li>
+	  <li>
+	    <a href="http://news.cnet.com/8301-1023_3-57448388-93/twitter-hits-400-million-tweets-per-day-mostly-mobile/">Entrevista com o CEO do Twitter pela CNET</a>
+	  </li>
+	  <li>
+	    <a href="https://dev.twitter.com/docs/streaming-apis">Twitter Streaming API</a>
+	  </li>
+
       	</ul>
       </article>
   </section>
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-33222625-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
   </body>
 </html>
