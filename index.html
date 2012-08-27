@@ -1,91 +1,122 @@
 <!DOCTYPE html>
 
 <!--
-  Google HTML5 slide template
+Google HTML5 slide template
 
-  Authors: Luke Mahé (code)
-           Marcin Wichary (code and design)
-           
-           Dominic Mazzoni (browser compatibility)
-           Charles Chen (ChromeVox support)
+Authors: Luke Mahé (code)
+Marcin Wichary (code and design)
 
-  URL: http://code.google.com/p/html5slides/
+Dominic Mazzoni (browser compatibility)
+Charles Chen (ChromeVox support)
+
+URL: http://code.google.com/p/html5slides/
 -->
 
 <html>
-  <head>
-    <title>Obtenção de dados do Twitter</title>
+	<head>
+		<title>Obtenção de dados do Twitter</title>
 
-    <meta charset='utf-8'>
-    <script src='slides.js'> </script>
-  <style>
-    @font-face {
-      font-family: 'Open Sans';
-      font-style: normal;
-      font-weight: 400;
-      src: local('Open Sans'), local('OpenSans'), url('1.woff') format('woff');
-    }
-  </style>
-  </head>
-  
+		<meta charset='utf-8'>
+		<script src='slides.js'></script>
+		<script src="jquery-1.8.0.min.js"></script>
+		<style>
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 400;
+				src: local('Open Sans'), local('OpenSans'), url('1.woff') format('woff');
+			}
+			button {
+				background: #1e5799;
+				background: -moz-linear-gradient(top,  #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8));
+				background: -webkit-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%);
+				background: -o-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%);
+				background: -ms-linear-gradient(top,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%);
+				background: linear-gradient(to bottom,  #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%);
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 );
+				-webkit-border-radius: 5px;
+				-moz-border-radius: 5px;
+				border-radius: 5px;
+				color: white;
+				height: 50px;
+				width: 100px;
+				font-family: 'Open Sans', Arial, sans-serif;
+				font-weight: 600;
+				font-size: 15px;
+				float: right;
+			}
 
-  <body style='display: none'>
+		</style>
+		<script type="text/javascript">
+			function get_five_imeusp(){
+				var url = "http://search.twitter.com/search.json?q=ime-usp&rpp=3&callback=?";
+				jQuery.getJSON(url, function(data){   
+				    //loop the tweets
+					jQuery(data.results).each(function(i,v){
+				    	$('#imeusp').append('<p style="font-size: 20px;">@' + v.from_user + ': ' + v.text) + '</p>';
+				    });
+				});
+			}
+		</script>
+	</head>
 
-    <section class='slides layout-regular template-default'>
-      <article>
-        <h1>
-          Obtenção de dados do Twitter
-          <br>
-        </h1>
-        <p>
-          Gabriel Pugliese - @gabrielsapo
-          <br>
-          nUSP: 5639061
-          <br>
-          Paulo Cheadi Haddad Filho - @paulochf
-          <br>
-          nUSP: 5210744
-        </p>
-      </article>
+	<body style='display: none'>
 
-      <article>
-        <h3>
-          Twitter
-        </h3>
-	<img style="float: right; height: 30%; width: 30%;"  src="images/bird.svg" />
-	<ul >
-	  <li>
-	  Serviço de microblog e rede social.
-	  </li>
-	  <li>
-	  Principal produto é o "Tweet": texto de até 140 caracteres.
-	  </li>
-	  <li>
-	  400 milhões de tweets por dia (a maioria <i>mobile</i>).
-	  </li>
-	  <li>
-	  100 milhões de usuários ativos (utilizaram 1 vez pelo menos em 3 meses).
-	  </li>
-	  <li>
-	  1 milhão de contas são criadas no Twitter todos os dias.
-	  </li>
-	  <li>
-	  Holanda, Brasil e Japão, nesta ordem, são os 3 maiores mercados ativos da plataforma.
-	  </li>
-	</ul>
-      </article>
+		<section class='slides layout-regular template-default'>
+			<article>
+				<h1> Obtenção de dados do Twitter
+				<br>
+				</h1>
+				<p>
+					Gabriel Pugliese - @gabrielsapo
+					<br>
+					nUSP: 5639061
+					<br>
+					Paulo Cheadi Haddad Filho - @paulochf
+					<br>
+					nUSP: 5210744
+				</p>
+			</article>
 
-      <article>
-	<h1>Twitter REST API (v1.1)</h1>
-	<p><a href="https://dev.twitter.com/">dev.twitter.com</a></p>
-      </article>
-      
-      <article>
-        <h3>
-	  Anatomia de uma requisição HTTP para a API
-        </h3>
-	<p>Como tweetar "Hello World!" com OAuth1.0a</p>
-        <pre>
+			<article>
+				<h3> Twitter </h3>
+				<img style="float: right; height: 30%; width: 30%;"  src="images/bird.svg" />
+				<ul >
+					<li>
+						Serviço de microblog e rede social.
+					</li>
+					<li>
+						Principal produto é o "Tweet": texto de até 140 caracteres.
+					</li>
+					<li>
+						400 milhões de tweets por dia (a maioria <i>mobile</i>).
+					</li>
+					<li>
+						100 milhões de usuários ativos (utilizaram 1 vez pelo menos em 3 meses).
+					</li>
+					<li>
+						1 milhão de contas são criadas no Twitter todos os dias.
+					</li>
+					<li>
+						Holanda, Brasil e Japão, nesta ordem, são os 3 maiores mercados ativos da plataforma.
+					</li>
+				</ul>
+			</article>
+
+			<article>
+				<h1>Twitter REST API (v1.1)</h1>
+				<p>
+					<a href="https://dev.twitter.com/">dev.twitter.com</a>
+				</p>
+			</article>
+
+			<article>
+				<h3> Anatomia de uma requisição HTTP para a API </h3>
+				<p>
+					Como tweetar "Hello World!" com OAuth1.0a
+				</p>
+				<pre>
 POST /1/statuses/update.json?include_entities=true HTTP/1.1
 Accept: *
 Connection: close
@@ -103,122 +134,135 @@ Content-Length: 76
 Host: api.twitter.com
 
 status=Hello%20World%21
-	</pre>
-      </article>
+				</pre>
+			</article>
 
-      <article>
-        <h3>
-          O que é e como funciona o OAuth
-        </h3>
-	<p><i>"An open protocol to allow secure authorization in a simple and standard method from web, mobile and desktop applications."</i></p>
-	<img style="margin-left: 15%; border: 1px solid;" src="images/chart.png" />
-      </article>
-    
-      <article>
-	<h3>
-	  Obtendo as tokens
-	</h3>
-	<p>Após criar uma aplicação em <a href="https://dev.twitter.com/apps/">dev.twitter.com/apps/</a>:</p>
-	<img class="centered" src="images/token.png" style="height: 88%;"/>
-	
-      </article>
+			<article>
+				<h3> O que é e como funciona o OAuth </h3>
+				<p>
+					<i>"An open protocol to allow secure authorization in a simple and standard method from web, mobile and desktop applications."</i>
+				</p>
+				<img style="margin-left: 15%; border: 1px solid;" src="images/chart.png" />
+			</article>
 
-      <article>
-        <h3>
-          Botão de autorização do usuário
-        </h3>
-        <br><img class='centered' src="images/authapp.jpg" />
-	<p>Na maioria das vezes, quanto mais autorizações requeridas de um usuário, maior a probabilidade de rejeição do aplicativo pelo usuário.</p>
-      </article>
-      
-      <article>
-        <h3>
-	  Onde mudar as permissões
-        </h3>
-        <p>Na aba <i>settings</i> da sua aplicação:</p><br>
-	<img class="centered" src="images/type.png" />
-      </article>
-      
-      <article>
-	<h3>
-	  A partir de março de 2013
-	</h3>
-	<ul>
-	  <li>
-	    Toda a requisição deverá ser autenticada. 
-	  </li>
-	  <li>
-	    Limitação de 60 requisições por hora por instância (antigamente 350req/hora). 
-	  </li>
-	  <li>
-	    Padrões visuais e léxicos obrigatórios aos desenvolvedores.
-	  </li>
-	  <li>
-	    Aplicativos em plataformas móveis precisarão ser autorizados.
-	  </li>
-	  <li>
-	   Se desenvolvedores precisarem de uma grande escala de <i>tokens</i> individuais, precisará entrar em contato.
-	  </li>
-	</ul>
-      </article>
-      
-      <article>
-      	<h3>
-	  Quadrantes dos desenvolvedores do Twitter
-      	</h3>
-	<img class="centered" src="images/dev_chart.png" />
-      </article>
-      
-      <article>
-        <h3>
-	  Planos futuros para desenvolvedores
-        </h3>
-	<ul>
-	  <li>
-	    Tweets em tempo real nas páginas web.
-	  </li>
-	  <li>
-	    Maior integração com o Twitter Cards:
-	  </li>
-	  <img class="centered" src="images/cards.png" />
-	</ul>
-      </article>
-      
-      <article>
-	<h1>
-	  Explorando a API pelo dev console
-	</h1>
-	<p><a href="https://dev.twitter.com/console">dev.twitter.com/console</a></p>
-      </article>
+			<article>
+				<h3> Obtendo as tokens </h3>
+				<p>
+					Após criar uma aplicação em <a href="https://dev.twitter.com/apps/">dev.twitter.com/apps/</a>:
+				</p>
+				<img class="centered" src="images/token.png" style="height: 88%;"/>
 
-      <article>
-	<h1>
-	  Trabalhando com Twitter4j
-	</h1>
-	<p><a href="http://twitter4j.org">twitter4j.org</a></p>
-      </article>
-      
-      <article>
-      	<h2>Obrigado</h2>
-      	<ul>
-	  <li>
-	    <a href="http://www.snipe.net/2009/07/writing-your-first-twitter-application-with-oauth/">Snipe.net</a>
-	  </li>
-	  <li>
-	    <a href="https://dev.twitter.com/docs">Documentação do Twitter</a>
-	  </li>
-	  <li>
-	    <a href="http://oauth.net/">OAuth</a>
-	  </li>
-	  <li>
-	    <a href="http://news.cnet.com/8301-1023_3-57448388-93/twitter-hits-400-million-tweets-per-day-mostly-mobile/">Entrevista com o CEO do Twitter pela CNET</a>
-	  </li>
-	  <li>
-	    <a href="https://dev.twitter.com/docs/streaming-apis">Twitter Streaming API</a>
-	  </li>
+			</article>
 
-      	</ul>
-      </article>
-  </section>
-  </body>
+			<article>
+				<h3> Botão de autorização do usuário </h3>
+				<br>
+				<img class='centered' src="images/authapp.jpg" />
+				<p>
+					Na maioria das vezes, quanto mais autorizações requeridas de um usuário, maior a probabilidade de rejeição do aplicativo pelo usuário.
+				</p>
+			</article>
+
+			<article>
+				<h3> Onde mudar as permissões </h3>
+				<p>
+					Na aba <i>settings</i> da sua aplicação:
+				</p>
+				<br>
+				<img class="centered" src="images/type.png" />
+			</article>
+
+			<article>
+				<h3> A partir de março de 2013 </h3>
+				<ul>
+					<li>
+						Toda a requisição deverá ser autenticada.
+					</li>
+					<li>
+						Limitação de 60 requisições por hora por instância (antigamente 350req/hora).
+					</li>
+					<li>
+						Padrões visuais e léxicos obrigatórios aos desenvolvedores.
+					</li>
+					<li>
+						Aplicativos em plataformas móveis precisarão ser autorizados.
+					</li>
+					<li>
+						Se desenvolvedores precisarem de uma grande escala de <i>tokens</i> individuais, precisará entrar em contato.
+					</li>
+				</ul>
+			</article>
+
+			<article>
+				<h3> Quadrantes dos desenvolvedores do Twitter </h3>
+				<img class="centered" src="images/dev_chart.png" />
+			</article>
+
+			<article>
+				<h3> Planos futuros para desenvolvedores </h3>
+				<ul>
+					<li>
+						Tweets em tempo real nas páginas web.
+					</li>
+					<li>
+						Maior integração com o Twitter Cards:
+					</li>
+					<img class="centered" src="images/cards.png" />
+				</ul>
+			</article>
+
+			<article>
+				<h1> Explorando a API pelo dev console </h1>
+				<p>
+					<a href="https://dev.twitter.com/console">dev.twitter.com/console</a>
+				</p>
+			</article>
+			
+			<article id="imeusp">
+				<h3>Buscar 3 últimos tweets sobre ime-usp</h3>
+				<pre>
+var //
+url = "//search.twitter.com/search.json?q=ime-usp&rpp=3&callback=?";
+jQuery.getJSON(url, function(data)
+{   
+    //loop the tweets
+    jQuery(data.results).each(function(i,v)
+    {
+        alert('@' + v.from_user + ': ' + v.text);
+    });
+});
+				</pre>
+				<button id="5tweets" onClick="get_five_imeusp();">Rodar</button>
+			</article>
+
+			<article>
+				<h1> Trabalhando com Twitter4j </h1>
+				<p>
+					<a href="http://twitter4j.org">twitter4j.org</a>
+				</p>
+			</article>
+
+			<article>
+				<h2>Obrigado</h2>
+				<ul>
+					<li>
+						<a href="http://www.snipe.net/2009/07/writing-your-first-twitter-application-with-oauth/">Snipe.net</a>
+					</li>
+					<li>
+						<a href="https://dev.twitter.com/docs">Documentação do Twitter</a>
+					</li>
+					<li>
+						<a href="http://oauth.net/">OAuth</a>
+					</li>
+					<li>
+						<a href="http://news.cnet.com/8301-1023_3-57448388-93/twitter-hits-400-million-tweets-per-day-mostly-mobile/">Entrevista com o CEO do Twitter pela CNET</a>
+					</li>
+					<li>
+						<a href="https://dev.twitter.com/docs/streaming-apis">Twitter Streaming API</a>
+					</li>
+
+				</ul>
+			</article>
+		</section>
+	</body>
 </html>
