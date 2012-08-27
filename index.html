@@ -187,13 +187,34 @@ status=Hello%20World%21
 			</article>
 
 			<article>
+				<h3> Algumas limitações atuais </h3>
+				<ul>
+					<li>
+						150 requisições não-autenticadas por hora.
+					</li>
+					<li>
+						350 requisições autenticadas por hora.
+					</li>
+					<li>
+						Tweets antigos até 1.5 semana (mas dinâmico).
+					</li>
+					<li>
+						100 amigos por requisição.
+					</li>
+					<li>
+						E outros ver na própria documentação.
+					</li>
+				</ul>
+			</article>
+
+			<article>
 				<h3> A partir de março de 2013 </h3>
 				<ul>
 					<li>
 						Toda a requisição deverá ser autenticada.
 					</li>
 					<li>
-						Limitação de 60 requisições por hora por instância (antigamente 350req/hora).
+						Limitação de 60 requisições por hora por instância.
 					</li>
 					<li>
 						Padrões visuais e léxicos obrigatórios aos desenvolvedores.
@@ -254,6 +275,30 @@ jQuery.getJSON(url, function(data)
 				<p>
 					<a href="http://twitter4j.org">twitter4j.org</a>
 				</p>
+			</article>
+
+			<article>
+				<h3> Cross-reference Twitter4j x Twitter API dev console </h3>
+				<p>
+					Para facilitar o paralelo entre os métodos da API do Twitter4j e o dev console:
+				</p>
+				<p>
+					<a href="http://twitter4j.org/en/api-support.html">twitter4j.org/en/api-support.html</a>
+				</p>
+			</article>
+
+			<article>
+				<h3>Exemplo do Twitter4j</h3>
+				<pre>
+// The factory instance is re-useable and thread safe.
+Twitter twitter = new TwitterFactory().getInstance();
+List<Status> statuses = twitter.getFriendsTimeline();
+System.out.println("Showing friends timeline.");
+for (Status status : statuses) {
+System.out.println(status.getUser().getName() + ":" +
+		   status.getText());
+}
+				</pre>
 			</article>
 
 			<article>
